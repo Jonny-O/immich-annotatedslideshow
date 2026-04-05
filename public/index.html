@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Immich Slideshow</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Screen 1: Connect -->
+  <section id="connect-screen" class="screen active">
+    <div class="connect-card">
+      <h1>Immich Slideshow</h1>
+      <p class="subtitle">Connect to your Immich server to start a slideshow</p>
+      <form id="connect-form">
+        <label for="server-url">Server URL</label>
+        <input type="url" id="server-url" placeholder="https://immich.example.com" required>
+        <label for="api-key">API Key</label>
+        <input type="password" id="api-key" placeholder="Your Immich API key" required>
+        <label class="save-credentials">
+          <input type="checkbox" id="save-credentials">
+          <span>Remember credentials</span>
+        </label>
+        <button type="submit" id="connect-btn">Connect</button>
+        <p id="connect-error" class="error hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Screen 2: Album Selection -->
+  <section id="album-screen" class="screen">
+    <header class="album-header">
+      <button id="back-to-connect" class="btn-icon" title="Disconnect">&larr; Back</button>
+      <h2>Select an Album</h2>
+      <div class="slideshow-options">
+        <label class="option">
+          <span>Duration</span>
+          <select id="slide-duration">
+            <option value="5000">5s</option>
+            <option value="10000" selected>10s</option>
+            <option value="15000">15s</option>
+            <option value="30000">30s</option>
+          </select>
+        </label>
+        <label class="option">
+          <input type="checkbox" id="loop-toggle" checked>
+          <span>Loop</span>
+        </label>
+      </div>
+    </header>
+    <div id="album-grid" class="album-grid"></div>
+    <p id="album-loading" class="loading hidden">Loading albums...</p>
+    <p id="album-error" class="error hidden"></p>
+  </section>
+
+  <!-- Screen 3: Slideshow -->
+  <section id="slideshow-screen" class="screen">
+    <div id="slideshow-viewport">
+      <div id="image-container">
+        <img id="slide-layer-a" class="slide-layer" alt="">
+        <img id="slide-layer-b" class="slide-layer" alt="">
+      </div>
+      <div id="description-panel">
+        <p id="description-text"></p>
+      </div>
+    </div>
+
+    <div id="slideshow-controls">
+      <button id="btn-back-albums" class="btn-icon" title="Back to albums">&larr;</button>
+      <button id="btn-prev" class="btn-icon" title="Previous">&#9664;</button>
+      <button id="btn-play-pause" class="btn-icon" title="Pause">&#10074;&#10074;</button>
+      <button id="btn-next" class="btn-icon" title="Next">&#9654;</button>
+      <span id="slide-counter">0 / 0</span>
+      <div id="progress-bar"><div id="progress-fill"></div></div>
+    </div>
+  </section>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/slideshow.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

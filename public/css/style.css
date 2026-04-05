@@ -1,0 +1,417 @@
+/* === Reset & Base === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0f0f0f;
+  color: #e0e0e0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* === Screens === */
+.screen {
+  display: none;
+  position: absolute;
+  inset: 0;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* === Connect Screen === */
+#connect-screen {
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.connect-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.connect-card h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.subtitle {
+  color: #999;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+#connect-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+#connect-form label {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: -0.25rem;
+}
+
+#connect-form input {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#connect-form input:focus {
+  border-color: #4a9eff;
+}
+
+#connect-form button {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: #4a9eff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#connect-form button:hover {
+  background: #3a8eef;
+}
+
+#connect-form button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+.save-credentials {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.save-credentials input[type="checkbox"] {
+  accent-color: #4a9eff;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.loading {
+  color: #999;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* === Album Screen === */
+#album-screen {
+  flex-direction: column;
+  background: #0f0f0f;
+}
+
+.album-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #222;
+  flex-wrap: wrap;
+}
+
+.album-header h2 {
+  font-size: 1.2rem;
+  flex: 1;
+}
+
+.slideshow-options {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.option select {
+  background: #222;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.option input[type="checkbox"] {
+  accent-color: #4a9eff;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.album-card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #2a2a2a;
+}
+
+.album-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border-color: #4a9eff;
+}
+
+.album-card-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #222;
+  display: block;
+}
+
+.album-card-info {
+  padding: 0.75rem 1rem;
+}
+
+.album-card-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.album-card-count {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* === Slideshow Screen === */
+#slideshow-screen {
+  flex-direction: column;
+  background: #000;
+}
+
+#slideshow-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Landscape layout (default): image on top, description below */
+#slideshow-viewport.landscape {
+  flex-direction: column;
+}
+
+/* Portrait layout: image left, description right */
+#slideshow-viewport.portrait {
+  flex-direction: row;
+}
+
+#image-container {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+
+.slide-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  background: #000;
+}
+
+.slide-layer.active {
+  opacity: 1;
+}
+
+/* === Description Panel — large, bright text for 32" display at 10' === */
+#description-panel {
+  background: rgba(0, 0, 0, 0.85);
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#description-text {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.4;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  animation: descFadeIn 0.6s ease;
+}
+
+@keyframes descFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Landscape: description below */
+#slideshow-viewport.landscape #description-panel {
+  min-height: 80px;
+  max-height: 20vh;
+  border-top: 1px solid #222;
+  padding: 1rem 3rem;
+}
+
+/* Portrait: description to the right */
+#slideshow-viewport.portrait #description-panel {
+  width: 30vw;
+  min-width: 280px;
+  max-width: 450px;
+  border-left: 1px solid #222;
+  padding: 2rem 1.5rem;
+}
+
+#slideshow-viewport.portrait #description-text {
+  font-size: 2rem;
+}
+
+/* Slideshow Controls — auto-hide */
+#slideshow-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(17, 17, 17, 0.95);
+  border-top: 1px solid #222;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#slideshow-controls.controls-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+#slideshow-controls.controls-hidden {
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+.btn-icon {
+  background: none;
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-icon:hover {
+  background: #222;
+  border-color: #666;
+}
+
+#slide-counter {
+  font-size: 0.8rem;
+  color: #777;
+  margin-left: 0.5rem;
+}
+
+#progress-bar {
+  flex: 1;
+  height: 3px;
+  background: #333;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-left: 0.5rem;
+}
+
+#progress-fill {
+  height: 100%;
+  background: #4a9eff;
+  width: 0%;
+  transition: width 0.3s linear;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  #slideshow-viewport.portrait {
+    flex-direction: column;
+  }
+
+  #slideshow-viewport.portrait #description-panel {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    max-height: 25vh;
+    border-left: none;
+    border-top: 1px solid #222;
+  }
+
+  #description-text {
+    font-size: 1.5rem;
+  }
+
+  .connect-card {
+    margin: 1rem;
+    padding: 2rem;
+  }
+
+  .album-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    padding: 1rem;
+  }
+}
