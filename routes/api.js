@@ -65,6 +65,60 @@ router.get('/albums/:id', (req, res) => {
   proxyJson(req, res, `/albums/${req.params.id}`);
 });
 
+// GET /api/albums/:id/assets - List all assets in an album.
+// Newer Immich versions no longer embed `assets` in the album response, so
+// page through /search/metadata filtered by album instead.
+router.get('/albums/:id/assets', async (req, res) => {
+  const headers = {
+    'x-api-key': req.immichKey,
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  };
+
+  try {
+    const albumRes = await fetch(`${req.immichUrl}/api/albums/${req.params.id}`, { headers });
+    if (!albumRes.ok) {
+      return res.status(albumRes.status).json({
+        error: `Immich API error: ${albumRes.status} ${albumRes.statusText}`,
+      });
+    }
+    const album = await albumRes.json();
+
+    // Older Immich servers still include the assets inline
+    if (Array.isArray(album.assets) && album.assets.length > 0) {
+      return res.json(album.assets);
+    }
+
+    const assets = [];
+    let page = 1;
+    while (page) {
+      const searchRes = await fetch(`${req.immichUrl}/api/search/metadata`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          albumIds: [req.params.id],
+          page,
+          size: 1000,
+          withExif: true,
+          order: album.order === 'asc' ? 'asc' : 'desc',
+        }),
+      });
+      if (!searchRes.ok) {
+        return res.status(searchRes.status).json({
+          error: `Immich API error: ${searchRes.status} ${searchRes.statusText}`,
+        });
+      }
+      const data = await searchRes.json();
+      assets.push(...(data.assets?.items || []));
+      page = data.assets?.nextPage ? parseInt(data.assets.nextPage, 10) : null;
+    }
+
+    res.json(assets);
+  } catch (err) {
+    res.status(502).json({ error: `Failed to reach Immich server: ${err.message}` });
+  }
+});
+
 // GET /api/assets/:id - Get asset metadata
 router.get('/assets/:id', (req, res) => {
   proxyJson(req, res, `/assets/${req.params.id}`);

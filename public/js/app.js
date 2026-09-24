@@ -110,8 +110,7 @@
     showControls();
 
     try {
-      const albumDetail = await ImmichAPI.getAlbum(album.id);
-      const assets = albumDetail.assets || [];
+      const assets = await ImmichAPI.getAlbumAssets(album.id);
 
       if (assets.length === 0) {
         alert('This album has no photos.');

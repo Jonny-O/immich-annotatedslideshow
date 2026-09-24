@@ -29,6 +29,10 @@ const ImmichAPI = (() => {
     return fetchJson(`/api/albums/${id}`);
   }
 
+  function getAlbumAssets(id) {
+    return fetchJson(`/api/albums/${id}/assets`);
+  }
+
   function getAssetInfo(id) {
     return fetchJson(`/api/assets/${id}`);
   }
@@ -41,5 +45,5 @@ const ImmichAPI = (() => {
     return `/api/assets/${assetId}/original?immichUrl=${encodeURIComponent(_url)}&immichKey=${encodeURIComponent(_key)}`;
   }
 
-  return { init, getAlbums, getAlbum, getAssetInfo, thumbnailUrl, originalUrl };
+  return { init, getAlbums, getAlbum, getAlbumAssets, getAssetInfo, thumbnailUrl, originalUrl };
 })();
